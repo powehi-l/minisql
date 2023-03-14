@@ -4,6 +4,7 @@
 #include <list>
 #include <mutex>
 #include <unordered_set>
+#include <unordered_map>
 #include <vector>
 
 #include "buffer/replacer.h"
@@ -37,6 +38,10 @@ public:
 
 private:
   // add your own private member variables here
+  std::mutex mut;
+  size_t num_pages_;
+  std::list<frame_id_t> lru_list_;
+  std::unordered_map<frame_id_t, std::list<frame_id_t>::iterator> lru_map_;
 };
 
 #endif  // MINISQL_LRU_REPLACER_H
