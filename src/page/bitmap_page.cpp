@@ -22,26 +22,15 @@ bool BitmapPage<PageSize>::DeAllocatePage(uint32_t page_offset) {
   return true;
 }
 
-// template<size_t PageSize>
-// bool BitmapPage<PageSize>::IsPageFree(uint32_t page_offset) const {
-//   return IsPageFreeLow(page_offset / 8, page_offset % 8);
-// }
-
-// template<size_t PageSize>
-// bool BitmapPage<PageSize>::IsPageFreeLow(uint32_t byte_index, uint8_t bit_index) const {
-//   // if(((byte_index<<3) + bit_index) >= MAX_CHARS*8) return false;
-//   if(((bytes[byte_index]>>bit_index) & 0x01) == 0) return true;
-//   return false;
-// }
 template<size_t PageSize>
 bool BitmapPage<PageSize>::IsPageFree(uint32_t page_offset) const {
-  if(IsPageFreeLow(page_offset/8, page_offset%8)) return true;
-  return false;
+  return IsPageFreeLow(page_offset / 8, page_offset % 8);
 }
 
 template<size_t PageSize>
 bool BitmapPage<PageSize>::IsPageFreeLow(uint32_t byte_index, uint8_t bit_index) const {
-  if((bytes[byte_index]>>bit_index & 0x01) == 0) return true;
+  // if(((byte_index<<3) + bit_index) >= MAX_CHARS*8) return false;
+  if(((bytes[byte_index]>>bit_index) & 0x01) == 0) return true;
   return false;
 }
 
